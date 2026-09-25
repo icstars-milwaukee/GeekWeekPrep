@@ -11,24 +11,19 @@ instead of your notes, this is the rep that puts them there.
 
 ## The Ask
 
-One query, typed from scratch — deck closed, no copying:
+Typed from scratch — deck closed, no copying:
 
-- every product Northwind sells
-- the supplier company that ships it to us
-- the kind of thing it is
-- sorted by category name, A → Z
-
-Columns, in this order: `CompanyName` · `ProductName` · `CategoryName`.
+> Create a query that retrieves all the Supplier Company Names, Product
+> Names, and Category Names in one table, with the Category Names in
+> ascending order.
 
 ## The Proof
 
-When it's right, the grid shows **77 rows** and the top of the list reads:
+The result should look like this:
 
-```
-CompanyName       ProductName    CategoryName
-Exotic Liquids    Chai           Beverages
-Exotic Liquids    Chang          Beverages
-```
+![SSMS Results grid: CompanyName, ProductName, CategoryName columns — Exotic Liquids/Chai/Beverages on top, 77 rows](./product-catalog-result.webp)
+
+**77 rows**, with `Exotic Liquids · Chai · Beverages` at the top.
 
 Wrong row count or a different top row? The data did what you said, not
 what you meant — reread, rerun. The We-do section of the workshop deck
