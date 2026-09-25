@@ -11,7 +11,7 @@
   body{font-family:var(--disp);background:var(--ink);color:var(--paper)}
   .deck{position:relative;height:100%;width:100%}
   .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
-    padding:6vh 8vw;opacity:0;visibility:hidden;transform:translateX(4%);
+    padding:4vh 8vw;opacity:0;visibility:hidden;transform:translateX(4%);
     transition:opacity .45s ease,transform .45s ease,visibility .45s;overflow-y:auto}
   .slide.active{opacity:1;visibility:visible;transform:none}
   @media (prefers-reduced-motion: reduce){.slide{transition:none;transform:none}}
@@ -25,7 +25,7 @@
   h1{font-weight:900;font-size:clamp(40px,7.2vw,104px);line-height:.98;letter-spacing:-.02em;
     text-wrap:balance;text-transform:uppercase}
   h2{font-weight:900;font-size:clamp(28px,4.6vw,66px);line-height:1.02;letter-spacing:-.015em;
-    text-wrap:balance;text-transform:uppercase;margin-bottom:3vh}
+    text-wrap:balance;text-transform:uppercase;margin-bottom:2vh}
   .sub{font-size:clamp(16px,1.8vw,23px);line-height:1.5;max-width:64ch;color:var(--grey)}
   .paper .sub{color:var(--grey-dark)}
   .redbg .sub{color:#FFD9E2}
@@ -89,7 +89,7 @@
     .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;transform:none!important;
       height:7.5in;width:13.33in;page-break-after:always;overflow:hidden;transition:none}
   }
-  .code{font-family:var(--mono);font-size:clamp(12px,1.45vw,18px);line-height:1.55;background:var(--ink-soft);color:var(--paper);padding:2.2vh 1.8vw;border-left:6px solid var(--red);white-space:pre;overflow-x:auto;max-width:100%}  .paper .code{background:#241D25}  .code .cm{color:var(--grey)}</style>
+  .code{font-family:var(--mono);font-size:clamp(13px,min(1.9vw,3.2vh),28px);line-height:1.45;background:var(--ink-soft);color:var(--paper);padding:1.8vh 1.6vw;border-left:6px solid var(--red);white-space:pre;overflow-x:auto;max-width:100%}  .paper .code{background:#241D25}  .code .cm{color:var(--grey)}</style>
 
 <div class="bar" id="bar"></div>
 <div class="brand" id="brand">i.c.stars<span class="pipe">|</span><span class="star">*</span><span class="mke">Milwaukee</span></div>
