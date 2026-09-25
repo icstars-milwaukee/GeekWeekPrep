@@ -59,6 +59,14 @@ up. Read it before Monday. Reread it whenever the week gets loud.
   get noticed, and they turn into a live walkthrough with different table
   names. Write your own — helping each other *understand* is encouraged;
   cloning answers is not.
+- **Don't talk tasks. Ever.** Not the queries, not the answers, not
+  "just a hint" — a task belongs to the person attempting it, and what
+  you leak cheats them out of their rep. Concepts, syntax, and the six
+  words are fair game between blocks; Tasks 1–15 are off the table all
+  week.
+- **Don't use your buffer to collect answers.** The buffer after a miss
+  is for rereading *your own* query — not for working the room. Come
+  back with your thinking, not someone else's.
 - **Don't test out of order** or bank on skipping — the sequence is
   the curriculum.
 - **Don't let one fail set your mood.** The buffer-and-requeue loop is
