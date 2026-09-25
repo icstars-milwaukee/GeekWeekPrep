@@ -1,13 +1,12 @@
-# Optional Challenge · Bring it to Geek Week Monday
+# Optional Challenge · The Product Catalog
 
 **You can build the product catalog from a blank query window, by hand.**
 
-This one is **optional** — nothing bad happens if you skip it. But if you
-want to walk into Monday with the six words already living in your fingers
-instead of your notes, this is the rep that puts them there.
-
-**Name:** _______________
-**Cycle:** 21
+This is **100% optional, and there is nothing to submit** — nobody collects
+it, nobody grades it, and nothing bad happens if you skip it. It exists for
+exactly one person: you. That said, we **highly recommend** you do it — if
+you want to walk into Monday with the six words already living in your
+fingers instead of your notes, this is the rep that puts them there.
 
 ## The Ask
 
@@ -29,20 +28,15 @@ Wrong row count or a different top row? The data did what you said, not
 what you meant — reread, rerun. The We-do section of the workshop deck
 builds this exact query one arrow at a time if you need the road back.
 
-## What to Turn In
+## When You've Got It
 
-Two files:
+Nothing to turn in. Your proof is the screen in front of you: 77 rows,
+Chai on top. Close the query window, and know that Monday-you is going
+to thank Friday-you.
 
-1. `product-catalog.sql` — your query, saved from SSMS
-2. `screenshot.png` — your Results grid, with the row count showing
-
-Push both to your personal folder in the `tech-foundations` repo
-(`cycles/cycle-21-fall-2026/<your-name>/`) — the same folder your first
-test file went in — or bring them Monday morning.
-
-## Level Up (also optional)
+## Level Up (also optional, also recommended)
 
 - Write it again tomorrow, from memory. It goes faster the second time.
 - Time yourself. Then beat your time.
 - Then invent one question of your own — any table on the map — and make
-  Northwind answer it. Bring your favorite; Monday starts with show-and-tell.
+  Northwind answer it.

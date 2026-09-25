@@ -82,7 +82,8 @@ Monday.
 
 [`DEL-0928-product-catalog.md`](./DEL-0928-product-catalog.md) — after the
 workshop, rebuild the product catalog query from a blank query window, by
-hand, and bring it to Geek Week Monday. Optional, but the reps count.
+hand. **Completely optional and nothing to submit** — but we highly
+recommend it. The reps count.
 
 ## Having trouble?
 
