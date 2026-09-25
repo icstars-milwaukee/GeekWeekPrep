@@ -101,6 +101,7 @@ function Wait-ForSql {
 # removed first, because it blocks the correct one from being created.
 $grantSql = @"
 SET NOCOUNT ON;
+DECLARE @q nvarchar(max);
 DECLARE @sid varbinary(85) = $sidHex;
 DECLARE @login sysname = (SELECT name FROM sys.server_principals WHERE sid = @sid);
 PRINT 'SQL Server resolves this SID to: ' + ISNULL(SUSER_SNAME(@sid), '(unresolved)');
@@ -112,16 +113,16 @@ BEGIN
     IF EXISTS (SELECT 1 FROM sys.server_principals WHERE name = @name)
     BEGIN
         PRINT 'Removing stale login ' + @name + ' (same name, different SID).';
-        EXEC('DROP LOGIN ' + QUOTENAME(@name));
+        SET @q = 'DROP LOGIN ' + QUOTENAME(@name); EXEC(@q);
     END
-    EXEC('CREATE LOGIN ' + QUOTENAME(@name) + ' FROM WINDOWS');
+    SET @q = 'CREATE LOGIN ' + QUOTENAME(@name) + ' FROM WINDOWS'; EXEC(@q);
     SET @login = (SELECT name FROM sys.server_principals WHERE sid = @sid);
     IF @login IS NULL
         THROW 50001, 'Created a login, but its SID does not match this Windows account.', 1;
 END
 
-EXEC('ALTER LOGIN ' + QUOTENAME(@login) + ' ENABLE');
-EXEC('ALTER SERVER ROLE sysadmin ADD MEMBER ' + QUOTENAME(@login));
+SET @q = 'ALTER LOGIN ' + QUOTENAME(@login) + ' ENABLE'; EXEC(@q);
+SET @q = 'ALTER SERVER ROLE sysadmin ADD MEMBER ' + QUOTENAME(@login); EXEC(@q);
 PRINT 'Added ' + @login + ' to sysadmin.';
 "@
 
@@ -129,15 +130,16 @@ PRINT 'Added ' + @login + ' to sysadmin.';
 # Looked up by SID so it works on non-English Windows too.
 $fallbackSql = @"
 SET NOCOUNT ON;
+DECLARE @q nvarchar(max);
 DECLARE @isid varbinary(85) = $interactiveSidHex;
 DECLARE @iname sysname = (SELECT name FROM sys.server_principals WHERE sid = @isid);
 IF @iname IS NULL
 BEGIN
     SET @iname = SUSER_SNAME(@isid);
     IF @iname IS NULL THROW 50002, 'Could not resolve the INTERACTIVE group.', 1;
-    EXEC('CREATE LOGIN ' + QUOTENAME(@iname) + ' FROM WINDOWS');
+    SET @q = 'CREATE LOGIN ' + QUOTENAME(@iname) + ' FROM WINDOWS'; EXEC(@q);
 END
-EXEC('ALTER SERVER ROLE sysadmin ADD MEMBER ' + QUOTENAME(@iname));
+SET @q = 'ALTER SERVER ROLE sysadmin ADD MEMBER ' + QUOTENAME(@iname); EXEC(@q);
 PRINT 'Added ' + @iname + ' to sysadmin.';
 "@
 
