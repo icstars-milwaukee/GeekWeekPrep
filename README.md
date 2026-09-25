@@ -50,6 +50,12 @@ The answer should be **830**.
 or tap the screen edges to navigate, **Ctrl+P → Save as PDF** exports one
 slide per page.
 
+## Optional challenge
+
+[`DEL-0928-product-catalog.md`](./DEL-0928-product-catalog.md) — after the
+workshop, rebuild the product catalog query from a blank query window, by
+hand, and bring it to Geek Week Monday. Optional, but the reps count.
+
 ## Having trouble?
 
 Take a screenshot of the error and show it to Carl or Jakwoun.
