@@ -32,11 +32,29 @@ irm https://raw.githubusercontent.com/icstars-milwaukee/GeekWeekPrep/main/Unlock
 
 ## Step 2 — Load the practice database
 
-1. Download [`GeekWeekData.sql`](./GeekWeekData.sql) (click the file,
-   then the **Download raw file** button).
-2. Open it in SQL Server Management Studio (connect to `.\SQLEXPRESS`
-   with Windows Authentication).
-3. Click **Execute**. It should complete with no permission errors.
+1. In this repo, click [`GeekWeekData.sql`](./GeekWeekData.sql), then the
+   **Download raw file** button (the download icon, top-right of the file
+   view). The file lands in your **Downloads** folder (about 2.5 MB).
+2. Open **SQL Server Management Studio (SSMS)**.
+3. In the **Connect to Server** box that appears:
+   - **Server type:** Database Engine
+   - **Server name:** `.\SQLEXPRESS`
+   - **Authentication:** Windows Authentication
+
+   …then click **Connect**. (No box appeared? Use
+   **File → Connect Object Explorer**.)
+4. Go to **File → Open → File…** and pick the `GeekWeekData.sql` you
+   downloaded in step 1.
+5. Press **F5** (or click the **Execute** button). It runs for about a
+   minute — an entire database is being built and filled. Let it finish.
+6. The **Messages** pane ends with **"Commands completed successfully."**
+
+**If you see something else:**
+
+- **"CREATE DATABASE permission denied"** — you skipped Step 1. Do Step 1,
+  then run this file again.
+- **"Database 'northwind' already exists"** — it's already loaded. You're
+  done; jump to the proof below.
 
 **Prove it worked:** in SSMS, open a New Query and run
 
