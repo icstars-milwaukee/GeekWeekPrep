@@ -103,7 +103,7 @@
 
 <!-- 1 · TITLE -->
 <section class="slide ink active">
-  <div class="eyebrow">GeekWeekPrep · Virtual · 10:00–12:00</div>
+  <div class="eyebrow">GeekWeekPrep · Virtual · 1:00–2:30 PM · Encore 6:00–7:00 PM</div>
   <h1>Ask the<br>data<span class="star">*</span></h1>
   <p class="sub" style="margin-top:3vh">A whole trading company — customers, orders, products — is sitting
   in a database on your laptop. First I'll query it on my shared screen. Then we'll do it together.
@@ -112,21 +112,23 @@
 
 <!-- 2 · AGENDA -->
 <section class="slide paper">
-  <div class="eyebrow">The next two hours</div>
+  <div class="eyebrow">This afternoon — and the encore tonight</div>
   <h2>Agenda</h2>
   <ul class="big">
-    <li><span class="b">10:00</span><span>Welcome — the warm-up before the race</span></li>
-    <li><span class="b">10:10</span><span>The map — tables, keys, and how they connect</span></li>
-    <li><span class="b">10:30</span><span><strong>I do</strong> — watch me ask Northwind questions, out loud. You just watch.</span></li>
-    <li><span class="b">11:00</span><span><strong>We do</strong> — one query, together, one step at a time. Nobody gets left.</span></li>
-    <li><span class="b">11:20</span><span><strong>You do</strong> — pairs, real questions, your own queries</span></li>
-    <li><span class="b">11:40</span><span>Wrap-up — what Geek Week will feel like</span></li>
+    <li><span class="b">1:00</span><span>Welcome, green lights, and the setup play</span></li>
+    <li><span class="b">1:25</span><span>The map — tables, keys, and how they connect</span></li>
+    <li><span class="b">1:40</span><span><strong>I do</strong> — watch me ask Northwind questions, out loud. You just watch.</span></li>
+    <li><span class="b">2:00</span><span><strong>We do</strong> — one query, together, one step at a time. Nobody gets left.</span></li>
+    <li><span class="b">2:20</span><span><strong>You do</strong> — pairs, real questions, your own queries — as far as we get</span></li>
+    <li><span class="b">6:00</span><span><strong>The encore</strong> — we resume exactly where we bookmarked. Wrap-up by 7:00.</span></li>
   </ul>
+  <p class="sub" style="margin-top:2vh">Hard stop at <strong>2:30</strong> — wherever we are, we bookmark
+  the slide and pick it up right there at <strong>6:00</strong>. Nothing gets skipped, only paused.</p>
 </section>
 
 <!-- 3 · FRAMING -->
 <section class="slide ink">
-  <div class="eyebrow">10:00 · Welcome</div>
+  <div class="eyebrow">1:00 · Welcome</div>
   <h2>Geek Week will challenge you.<br>Today is your warm-up.</h2>
   <p class="sub">Nobody walks in Monday already knowing this — you walk in knowing how to
   figure it out. Today we build two things: enough SQL to be dangerous, and the habit
@@ -282,7 +284,7 @@ SELECT COUNT(*) FROM Orders;
 
 <!-- 6 · WHAT IS A RELATIONAL DATABASE -->
 <section class="slide paper">
-  <div class="eyebrow">10:10 · The map</div>
+  <div class="eyebrow">1:25 · The map</div>
   <h2>A well-organized<br>spreadsheet system</h2>
   <dl class="defs">
     <div class="def"><dt>Table</dt><dd>One sheet: all the customers. All the orders.</dd></div>
@@ -333,7 +335,7 @@ Products.SupplierID       ──────► Suppliers.SupplierID    <span cl
 
 <!-- 10a · I DO STEP 1 -->
 <section class="slide ink">
-  <div class="eyebrow">I do · step 1 of 4 — my screen share, just watch. You type at 11:00</div>
+  <div class="eyebrow">I do · step 1 of 4 — my screen share, just watch. You type at 2:00</div>
   <h2>I open the door</h2>
   <div class="code"><span class="cm">I open SSMS → Connect → Server name: .\SQLEXPRESS → Windows Authentication.</span>
 <span class="cm">Then: New Query. I TYPE:</span>
@@ -403,7 +405,7 @@ Save-a-Lot Markets    31</div>
   <h2>Two moves. That's the language.</h2>
   <p class="sub"><strong>Move 1: filter</strong> — SELECT, FROM, WHERE cut a big table down to the rows you care about.
   <strong>Move 2: summarize</strong> — JOIN, GROUP BY, ORDER BY connect tables and turn thousands of rows into one answer.
-  <strong style="color:var(--ink)">At 11:00 you build a query yourself, with me, one line at a time.</strong></p>
+  <strong style="color:var(--ink)">At 2:00 you build a query yourself, with me, one line at a time.</strong></p>
   <table style="margin-top:3vh">
     <tr><th>Word</th><th>Plain English</th><th>Word</th><th>Plain English</th></tr>
     <tr><td><span class="file">SELECT</span></td><td>show me these columns</td><td><span class="file">JOIN</span></td><td>walk the arrow to another table</td></tr>
@@ -414,7 +416,7 @@ Save-a-Lot Markets    31</div>
 
 <!-- 12 · WE DO MARKER -->
 <section class="slide redbg">
-  <div class="eyebrow">11:00 · together</div>
+  <div class="eyebrow">2:00 · together</div>
   <h2>We do — one query,<br>all of us</h2>
   <ul class="big">
     <li><span class="b">1</span><span>One step at a time. <strong>Nobody types ahead.</strong></span></li>
@@ -494,7 +496,7 @@ Exotic Liquids    Chang   Beverages</div>
 
 <!-- 14 · YOU DO MARKER -->
 <section class="slide redbg">
-  <div class="eyebrow">11:20 · breakout rooms, two per room</div>
+  <div class="eyebrow">2:20 · breakout rooms, two per room — continues in the 6:00 encore</div>
   <h2>You do — meet your partner</h2>
   <ul class="big">
     <li><span class="b">1</span><span>The <strong>driver shares their screen and types</strong>; the <strong>navigator</strong> reads the question, watches the query, catches typos</span></li>
@@ -506,7 +508,7 @@ Exotic Liquids    Chang   Beverages</div>
 
 <!-- 15 · YOU DO WORK BLOCK -->
 <section class="slide ink">
-  <div class="eyebrow">You do · until 11:40 — each question names its words</div>
+  <div class="eyebrow">You do · each question names its words</div>
   <h2>The work block</h2>
   <ul class="big">
     <li><span class="b">1</span><span>Which customers are in <strong>Germany</strong>? — you watched me do this one <em>(SELECT · WHERE)</em></span></li>
@@ -515,13 +517,14 @@ Exotic Liquids    Chang   Beverages</div>
     <li><span class="b">4</span><span>How many orders shipped to <strong>each country</strong>? <em>(JOIN · GROUP BY)</em></span></li>
     <li><span class="b">★</span><span>Done early? Invent a question of your own and make Northwind answer it</span></li>
   </ul>
-  <p class="sub" style="margin-top:2.5vh">At 11:40 the rooms close and we regroup — each pair drops
-  <strong style="color:var(--paper)">their favorite answer in the chat</strong> on the way back.</p>
+  <p class="sub" style="margin-top:2.5vh">When the rooms close — 2:30 sharp this afternoon, or in the
+  6:00 encore — each pair drops <strong style="color:var(--paper)">their favorite answer in the chat</strong>
+  on the way back.</p>
 </section>
 
 <!-- 16 · WRAP-UP -->
 <section class="slide paper">
-  <div class="eyebrow">11:40 · Wrap-up</div>
+  <div class="eyebrow">Wrap-up · the last ten minutes, wherever we land</div>
   <h2>You already speak SQL</h2>
   <ul class="big">
     <li><span class="b">★</span><span>Data lives in tables. <strong>Keys connect them.</strong> You read the map, then walk the arrows</span></li>
