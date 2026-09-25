@@ -89,7 +89,12 @@
     .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;transform:none!important;
       height:7.5in;width:13.33in;page-break-after:always;overflow:hidden;transition:none}
   }
-  .code{font-family:var(--mono);font-size:clamp(13px,min(1.9vw,3.2vh),28px);line-height:1.45;background:var(--ink-soft);color:var(--paper);padding:1.8vh 1.6vw;border-left:6px solid var(--red);white-space:pre;overflow-x:auto;max-width:100%}  .paper .code{background:#241D25}  .code .cm{color:var(--grey)}</style>
+  .code{position:relative;font-family:var(--mono);font-size:clamp(13px,min(1.9vw,3.2vh),28px);line-height:1.45;background:var(--ink-soft);color:var(--paper);padding:1.8vh 1.6vw;border-left:6px solid var(--red);white-space:pre;overflow-x:auto;max-width:100%}  .paper .code{background:#241D25}  .code .cm{color:var(--grey)}
+  .copybtn{position:absolute;top:.7vh;right:.7vw;font-family:var(--disp);font-size:clamp(11px,1vw,14px);font-weight:700;letter-spacing:.08em;background:rgba(250,246,242,.07);color:var(--grey);border:1px solid rgba(154,144,149,.45);border-radius:5px;padding:.3em .8em;cursor:pointer;white-space:nowrap}
+  .copybtn:hover{color:var(--paper);border-color:var(--red)}
+  .copybtn:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+  .copybtn.done{color:#7DDF9A;border-color:#7DDF9A}
+  @media print{.copybtn{display:none!important}}</style>
 
 <div class="bar" id="bar"></div>
 <div class="brand" id="brand">i.c.stars<span class="pipe">|</span><span class="star">*</span><span class="mke">Milwaukee</span></div>
@@ -602,5 +607,50 @@ Exotic Liquids    Chang   Beverages</div>
     x0=null;
   },{passive:true});
   paint();
+
+  // Copy buttons: grab just the typed commands. Narration (.cm) lines vanish;
+  // anything after a "THE SCREEN SAYS" line is expected OUTPUT, not input, and
+  // is skipped until the next blank line.
+  function extractCommands(block){
+    var clone=block.cloneNode(true);
+    var btn=clone.querySelector('.copybtn'); if(btn) btn.parentNode.removeChild(btn);
+    var cms=clone.querySelectorAll('.cm');
+    for(var k=0;k<cms.length;k++){
+      if(/SAYS|green:/.test(cms[k].textContent)) cms[k].textContent='OUT';
+      else cms[k].parentNode.removeChild(cms[k]);
+    }
+    var lines=clone.textContent.split('\n'),out=[],skip=false;
+    for(var j=0;j<lines.length;j++){
+      var ln=lines[j];
+      if(ln.indexOf('OUT')!==-1){skip=true;continue;}
+      if(skip){ if(ln.trim()===''){skip=false;} continue; }
+      out.push(ln.replace(/\s+$/,''));
+    }
+    return out.join('\n').replace(/\n{3,}/g,'\n\n').trim();
+  }
+  function flash(btn){
+    btn.textContent='✓ copied'; btn.classList.add('done');
+    setTimeout(function(){btn.textContent='⧉ copy';btn.classList.remove('done');},1400);
+  }
+  function doCopy(block,btn){
+    var text=extractCommands(block);
+    if(!text) return;
+    if(navigator.clipboard&&window.isSecureContext){
+      navigator.clipboard.writeText(text).then(function(){flash(btn);});
+    }else{
+      var ta=document.createElement('textarea');
+      ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); flash(btn); }catch(e){ /* clipboard unavailable */ }
+      document.body.removeChild(ta);
+    }
+  }
+  [].slice.call(document.querySelectorAll('.code')).forEach(function(block){
+    var btn=document.createElement('button');
+    btn.className='copybtn'; btn.type='button'; btn.textContent='⧉ copy';
+    btn.title='Copies just the commands — narration and screen output are left out';
+    btn.addEventListener('click',function(e){e.stopPropagation();doCopy(block,btn);});
+    block.appendChild(btn);
+  });
 })();
 </script>
