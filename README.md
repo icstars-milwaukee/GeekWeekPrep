@@ -2,6 +2,10 @@
 
 Setup files for GeekWeekPrep. Follow the two steps below **in order**.
 
+> **Heads up:** everything in this repo is **prep material**. The official
+> Geek Week guidelines and rules arrive by **email** — watch your inbox
+> and read them carefully when they land.
+
 ## Step 1 — Unlock SQL Server permissions (one time)
 
 If you get **"CREATE DATABASE permission denied"** errors in SQL Server

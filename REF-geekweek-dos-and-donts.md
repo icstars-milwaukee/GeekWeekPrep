@@ -3,6 +3,10 @@
 How testing works, what carries you through the week, and what trips people
 up. Read it before Monday. Reread it whenever the week gets loud.
 
+> **This is prep material.** The official Geek Week guidelines and rules
+> arrive by **email** — watch your inbox. If anything here and the email
+> ever disagree, the email wins.
+
 ## How testing works
 
 - **15 tasks, in order.** Task 1 before Task 2, no skipping ahead.
