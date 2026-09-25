@@ -69,6 +69,55 @@ if (-not $sqlcmd) {
 }
 Write-Host "Found sqlcmd: $sqlcmd"
 
+# --- Make sure SQL Server can start at all before we touch permissions ---
+function Show-StartupDiagnosis {
+    Write-Host ""
+    Write-Host "SQL Server itself will not start on this laptop. This is not a permissions problem." -ForegroundColor Red
+
+    # Known Windows 11 issue: NVMe drives reporting a sector size over 4 KB stop SQL Server from starting.
+    $sector = 0
+    $info = fsutil fsinfo sectorinfo $env:SystemDrive 2>$null | Out-String
+    if ($info -match 'PhysicalBytesPerSectorForAtomicity\s*:\s*(\d+)') { $sector = [int]$Matches[1] }
+    Write-Host "Disk sector size: $sector bytes" -ForegroundColor DarkGray
+
+    # Last lines of SQL Server's own error log
+    $log = Get-ChildItem "$env:ProgramFiles\Microsoft SQL Server\*\MSSQL\Log\ERRORLOG" -ErrorAction SilentlyContinue |
+        Sort-Object LastWriteTime | Select-Object -Last 1
+    if ($log) {
+        Write-Host "Last lines of $($log.FullName):" -ForegroundColor DarkGray
+        Get-Content $log.FullName -Tail 15 | ForEach-Object { Write-Host "  $_" -ForegroundColor DarkGray }
+    }
+
+    if ($sector -gt 4096) {
+        Write-Host ""
+        Write-Host "Cause found: this disk reports a $sector-byte sector size, which SQL Server does not support." -ForegroundColor Yellow
+        Write-Host "Microsoft's fix is one registry setting, then a restart." -ForegroundColor Yellow
+        $answer = Read-Host "Apply the fix now? (Y/N)"
+        if ($answer -match '^[Yy]') {
+            reg add "HKLM\SYSTEM\CurrentControlSet\Services\stornvme\Parameters\Device" /v ForcedPhysicalSectorSizeInBytes /t REG_MULTI_SZ /d "* 4095" /f | Out-Null
+            if ($LASTEXITCODE -eq 0) {
+                Write-Host ""
+                Write-Host "Fix applied. RESTART your laptop, then run this script again." -ForegroundColor Green
+            } else {
+                Write-Host "Could not apply the fix. Show this window to your instructor." -ForegroundColor Red
+            }
+            return
+        }
+    }
+    Write-Host ""
+    Write-Host "Take a screenshot of this window and show it to your instructor."
+}
+
+if ((Get-Service $service).Status -ne 'Running') {
+    Write-Host "SQL Server is not running. Trying to start it..."
+    net start $service 2>&1 | Out-Null
+}
+if ((Get-Service $service).Status -ne 'Running') {
+    Show-StartupDiagnosis
+    Read-Host "Press Enter to close"
+    exit 1
+}
+
 # -C : trust SQL Express's self-signed certificate (sqlcmd / ODBC Driver 18+
 #      encrypts by default and rejects it otherwise)
 # -b : return a non-zero exit code when a query fails
