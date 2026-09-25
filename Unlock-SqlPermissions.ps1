@@ -119,10 +119,15 @@ finally {
 }
 
 # --- Verify it worked ---
-Wait-ForSql | Out-Null
+if (-not (Wait-ForSql)) {
+    Write-Host "SQL Server did not come back up after the restart." -ForegroundColor Red
+}
 
+$check = $null
 if ($granted) {
-    $check = Invoke-Sql -Query "SET NOCOUNT ON; SELECT IS_SRVROLEMEMBER('sysadmin', N'$userSql');" -Raw
+    # Check the catalog by the SID of THIS Windows account. Looking the account up
+    # by name (IS_SRVROLEMEMBER with a login name) returns NULL for AzureAD accounts.
+    $check = Invoke-Sql -Query "SET NOCOUNT ON; SELECT COUNT(*) FROM sys.server_role_members rm JOIN sys.server_principals r ON r.principal_id = rm.role_principal_id JOIN sys.server_principals m ON m.principal_id = rm.member_principal_id WHERE r.name = 'sysadmin' AND m.sid = SUSER_SID();" -Raw
     if ($check.Output -eq '1') {
         Write-Host ""
         Write-Host "SUCCESS! $user now has full permissions on SQL Server." -ForegroundColor Green
@@ -147,6 +152,10 @@ elseif ($usedFallback) {
 }
 
 Write-Host ""
+if ($check -and $check.Output) {
+    Write-Host "Details: $($check.Output)" -ForegroundColor DarkGray
+}
+Write-Host "granted=$granted fallback=$usedFallback" -ForegroundColor DarkGray
 Write-Host "Something did not work - permissions are still limited." -ForegroundColor Red
 Write-Host "Take a screenshot of this window and show it to your instructor."
 Read-Host "Press Enter to close"
