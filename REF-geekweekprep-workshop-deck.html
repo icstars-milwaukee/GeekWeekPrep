@@ -1,0 +1,593 @@
+<title>GeekWeekPrep — Ask the Data · i.c.stars Milwaukee</title>
+<style>
+  :root{
+    --ink:#161217; --ink-soft:#231C24; --paper:#FAF6F2; --paper-dim:#EFE8E2;
+    --red:#D6003C; --red-deep:#A00030; --grey:#9A9095; --grey-dark:#5C5458;
+    --disp:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:Consolas,"Courier New",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{height:100%;overflow:hidden}
+  body{font-family:var(--disp);background:var(--ink);color:var(--paper)}
+  .deck{position:relative;height:100%;width:100%}
+  .slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;
+    padding:6vh 8vw;opacity:0;visibility:hidden;transform:translateX(4%);
+    transition:opacity .45s ease,transform .45s ease,visibility .45s;overflow-y:auto}
+  .slide.active{opacity:1;visibility:visible;transform:none}
+  @media (prefers-reduced-motion: reduce){.slide{transition:none;transform:none}}
+  .ink{background:var(--ink);color:var(--paper)}
+  .paper{background:var(--paper);color:var(--ink)}
+  .redbg{background:var(--red);color:var(--paper)}
+
+  .eyebrow{font-size:clamp(12px,1.4vw,16px);font-weight:700;letter-spacing:.28em;
+    text-transform:uppercase;color:var(--red);margin-bottom:2.2vh}
+  .redbg .eyebrow{color:var(--paper)}
+  h1{font-weight:900;font-size:clamp(40px,7.2vw,104px);line-height:.98;letter-spacing:-.02em;
+    text-wrap:balance;text-transform:uppercase}
+  h2{font-weight:900;font-size:clamp(28px,4.6vw,66px);line-height:1.02;letter-spacing:-.015em;
+    text-wrap:balance;text-transform:uppercase;margin-bottom:3vh}
+  .sub{font-size:clamp(16px,1.8vw,23px);line-height:1.5;max-width:64ch;color:var(--grey)}
+  .paper .sub{color:var(--grey-dark)}
+  .redbg .sub{color:#FFD9E2}
+  .star{color:var(--red);font-style:normal}
+
+  .brand{position:fixed;top:3.2vh;left:8vw;z-index:40;font-weight:900;
+    font-size:clamp(15px,1.6vw,21px);letter-spacing:-.01em;pointer-events:none}
+  .brand .pipe{font-weight:400;opacity:.55;margin:0 .12em}
+  .brand .mke{font-weight:400;letter-spacing:.22em;text-transform:uppercase;
+    font-size:.62em;vertical-align:.12em;margin-left:.9em;opacity:.75}
+  .tag{position:fixed;bottom:3.2vh;left:8vw;z-index:40;font-size:clamp(11px,1.15vw,14px);
+    letter-spacing:.22em;text-transform:uppercase;color:var(--grey);pointer-events:none}
+  .counter{position:fixed;bottom:3.2vh;right:8vw;z-index:40;font-family:var(--mono);
+    font-size:clamp(12px,1.2vw,15px);color:var(--grey);pointer-events:none;font-variant-numeric:tabular-nums}
+  .bar{position:fixed;top:0;left:0;height:5px;background:var(--red);z-index:50;
+    width:0;transition:width .45s ease}
+  @media (prefers-reduced-motion: reduce){.bar{transition:none}}
+
+  ul.big{list-style:none;font-size:clamp(16px,1.9vw,25px);line-height:1.45}
+  ul.big li{padding:1.3vh 0;border-bottom:1px solid rgba(154,144,149,.28);display:flex;gap:.7em}
+  ul.big li:last-child{border-bottom:none}
+  ul.big .b{color:var(--red);font-weight:900;flex-shrink:0}
+  .redbg ul.big .b{color:var(--paper)}
+  .paper ul.big li{border-color:rgba(92,84,88,.22)}
+
+  .defs{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2vh 2.5vw}
+  .def{border-top:4px solid var(--red);padding-top:1.3vh}
+  .redbg .def{border-color:var(--paper)}
+  .def dt{font-weight:900;font-size:clamp(17px,2vw,26px);text-transform:uppercase;letter-spacing:.01em}
+  .def dd{font-size:clamp(14px,1.55vw,19px);line-height:1.45;color:var(--grey);margin-top:.5vh}
+  .paper .def dd{color:var(--grey-dark)}
+  .redbg .def dd{color:#FFD9E2}
+
+  .file{font-family:var(--mono);font-size:.92em;background:rgba(214,0,60,.12);
+    color:var(--red);padding:.1em .45em;border-radius:3px;white-space:nowrap}
+  .paper .file{background:rgba(214,0,60,.09)}
+
+  .huge{font-weight:900;font-size:clamp(60px,11vw,170px);line-height:.95;letter-spacing:-.03em;text-transform:uppercase}
+
+  table{border-collapse:collapse;width:100%;font-size:clamp(13px,1.55vw,19px)}
+  th{text-align:left;font-size:.72em;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--red);padding:0 1.2em .7em 0;font-weight:700}
+  td{padding:.65em 1.2em .65em 0;border-top:1px solid rgba(154,144,149,.28);line-height:1.4;vertical-align:top}
+  .paper td{border-color:rgba(92,84,88,.22)}
+  .tnum{font-family:var(--mono);color:var(--red);font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums}
+
+  .hint{position:fixed;bottom:3.2vh;left:50%;transform:translateX(-50%);z-index:40;
+    font-size:clamp(11px,1.1vw,13px);letter-spacing:.18em;text-transform:uppercase;
+    color:var(--grey);opacity:.8;pointer-events:none;transition:opacity .6s}
+  .hint.gone{opacity:0}
+  .navzone{position:fixed;top:0;bottom:0;width:14vw;z-index:30;cursor:pointer;background:none;border:none}
+  .navzone:focus-visible{outline:3px solid var(--red);outline-offset:-3px}
+  .navzone.prev{left:0}.navzone.next{right:0}
+
+  /* Print = export: Ctrl+P -> Save as PDF gives one slide per page */
+  @page{size:13.33in 7.5in;margin:0}
+  @media print{
+    html,body{height:auto;overflow:visible}
+    .bar,.brand,.tag,.counter,.hint,.navzone{display:none!important}
+    .deck{height:auto}
+    .slide{position:relative;inset:auto;opacity:1!important;visibility:visible!important;transform:none!important;
+      height:7.5in;width:13.33in;page-break-after:always;overflow:hidden;transition:none}
+  }
+  .code{font-family:var(--mono);font-size:clamp(12px,1.45vw,18px);line-height:1.55;background:var(--ink-soft);color:var(--paper);padding:2.2vh 1.8vw;border-left:6px solid var(--red);white-space:pre;overflow-x:auto;max-width:100%}  .paper .code{background:#241D25}  .code .cm{color:var(--grey)}</style>
+
+<div class="bar" id="bar"></div>
+<div class="brand" id="brand">i.c.stars<span class="pipe">|</span><span class="star">*</span><span class="mke">Milwaukee</span></div>
+<div class="tag">GeekWeekPrep · SQL</div>
+<div class="counter" id="counter">1 / 31</div>
+<div class="hint" id="hint">→ arrow keys or tap sides</div>
+<button class="navzone prev" id="zPrev" aria-label="Previous slide"></button>
+<button class="navzone next" id="zNext" aria-label="Next slide"></button>
+
+<div class="deck" id="deck">
+
+<!-- 1 · TITLE -->
+<section class="slide ink active">
+  <div class="eyebrow">GeekWeekPrep · Virtual · 10:00–12:00</div>
+  <h1>Ask the<br>data<span class="star">*</span></h1>
+  <p class="sub" style="margin-top:3vh">A whole trading company — customers, orders, products — is sitting
+  in a database on your laptop. First I'll query it on my shared screen. Then we'll do it together.
+  Then you and a partner ask it your own questions in a breakout room.</p>
+</section>
+
+<!-- 2 · AGENDA -->
+<section class="slide paper">
+  <div class="eyebrow">The next two hours</div>
+  <h2>Agenda</h2>
+  <ul class="big">
+    <li><span class="b">10:00</span><span>Welcome — the warm-up before the race</span></li>
+    <li><span class="b">10:10</span><span>The map — tables, keys, and how they connect</span></li>
+    <li><span class="b">10:30</span><span><strong>I do</strong> — watch me ask Northwind questions, out loud. You just watch.</span></li>
+    <li><span class="b">11:00</span><span><strong>We do</strong> — one query, together, one step at a time. Nobody gets left.</span></li>
+    <li><span class="b">11:20</span><span><strong>You do</strong> — pairs, real questions, your own queries</span></li>
+    <li><span class="b">11:40</span><span>Wrap-up — what Geek Week will feel like</span></li>
+  </ul>
+</section>
+
+<!-- 3 · FRAMING -->
+<section class="slide ink">
+  <div class="eyebrow">10:00 · Welcome</div>
+  <h2>Geek Week will challenge you.<br>Today is your warm-up.</h2>
+  <p class="sub">Nobody walks in Monday already knowing this — you walk in knowing how to
+  figure it out. Today we build two things: enough SQL to be dangerous, and the habit
+  of staying curious when the screen says something you didn't expect.</p>
+  <p class="sub" style="margin-top:2.5vh;color:var(--paper)"><strong>"I have not failed. I've just found
+  10,000 ways that won't work."</strong> — Thomas Edison</p>
+</section>
+
+<!-- 4 · THE NUMBER -->
+<section class="slide redbg">
+  <div class="eyebrow">On your laptop, right now</div>
+  <p class="huge">830</p>
+  <p class="sub" style="margin-top:2vh">orders, from 91 customers, in 21 countries — the Northwind database
+  you loaded from <span style="color:var(--paper);font-family:var(--mono)">GeekWeekData.sql</span>. Nobody reads that.
+  <strong style="color:var(--paper)">You ask it questions.</strong></p>
+</section>
+
+<!-- 5 · SETUP PLAY MARKER -->
+<section class="slide redbg">
+  <div class="eyebrow">Before anything else · everyone, together</div>
+  <h2>The setup play —<br>seven steps, every laptop</h2>
+  <ul class="big">
+    <li><span class="b">1</span><span>We run every step <strong>together, right now</strong> — already done it? You're a helper: watch the chat</span></li>
+    <li><span class="b">2</span><span>Every slide shows <strong>exactly what your screen should say</strong>. Yours says something else? Type <strong>STUCK</strong> in the chat — <strong>the chat is the hand-raise</strong></span></li>
+    <li><span class="b">3</span><span>Nobody starts Geek Week with a red light. <strong>We don't leave this call under 100%.</strong></span></li>
+  </ul>
+</section>
+
+<!-- 5a · PLAY STEP 1 · GITHUB -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 1 of 7 — the GeekWeekPrep GitHub</div>
+  <h2>Open the repo</h2>
+  <div class="code"><span class="cm">In your browser, signed in to YOUR github.com account, YOU OPEN:</span>
+github.com/icstars-milwaukee/GeekWeekPrep
+
+<span class="cm">THE SCREEN SAYS: a README titled "GeekWeekPrep" —</span>
+Setup files for GeekWeekPrep. Follow the two steps below in order.
+Step 1 — Unlock SQL Server permissions (one time)
+Step 2 — Load the practice database</div>
+  <p class="sub" style="margin-top:2vh">This repo is mission control for the week — everything ships through it.
+  <strong style="color:var(--paper)">See a 404?</strong> You're signed out, or you haven't accepted the
+  <span class="file">icstars-milwaukee</span> invite in your email yet. Fix that first — nothing else works without it.
+  <em>Checkpoint: you can read the README. 👍 reaction.</em></p>
+</section>
+
+<!-- 5b · PLAY STEP 2 · POWERSHELL -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 2 of 7 — open the blue window</div>
+  <h2>Start PowerShell</h2>
+  <div class="code"><span class="cm">Click Start → type:</span>
+powershell
+
+<span class="cm">→ open "Windows PowerShell". No admin needed — the script asks for it itself.</span>
+<span class="cm">THE SCREEN SAYS (a blue window, waiting for you):</span>
+PS C:\Users\you></div>
+  <p class="sub" style="margin-top:2vh">That blinking cursor is Windows saying "I'm listening."
+  Terminals feel unfriendly for about ten more minutes, then never again.
+  <em>Checkpoint: blue window open. 👍 reaction.</em></p>
+</section>
+
+<!-- 5c · PLAY STEP 3 · THE ONE-LINER -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 3 of 7 — copy, paste, done</div>
+  <h2>Paste the unlock line</h2>
+  <div class="code"><span class="cm">From the README's Step 1, copy the WHOLE line, paste into the blue window, Enter:</span>
+irm https://raw.githubusercontent.com/icstars-milwaukee/GeekWeekPrep/main/
+    Unlock-SqlPermissions.ps1 -OutFile "$env:TEMP\Unlock-SqlPermissions.ps1";
+    powershell -NoProfile -ExecutionPolicy Bypass
+    -File "$env:TEMP\Unlock-SqlPermissions.ps1"     <span class="cm">← ONE line in the README</span>
+
+<span class="cm">THE SCREEN SAYS (in yellow):</span>
+Requesting administrator rights (click Yes on the prompt)...</div>
+  <p class="sub" style="margin-top:2vh">Then Windows dims the screen and asks
+  <strong style="color:var(--paper)">"Do you want to allow this app to make changes?" — click Yes.</strong>
+  That line downloads the unlock script from the repo you just opened, then runs it.
+  Copy from the README, not from this slide — the README's line is the real one.
+  <em>Checkpoint: you clicked Yes and a new window opened. 👍 reaction.</em></p>
+</section>
+
+<!-- 5d · PLAY STEP 4 · WATCH IT WORK -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 4 of 7 — about 30 seconds. Don't touch anything.</div>
+  <h2>Watch it work</h2>
+  <div class="code"><span class="cm">THE SCREEN SAYS, line by line:</span>
+Unlocking SQL Server for: YOURLAPTOP\you
+Found SQL Server instance: .\SQLEXPRESS (service: MSSQL$SQLEXPRESS)
+[1/4] Stopping SQL Server...
+[2/4] Starting SQL Server in single-user mode...
+[3/4] Granting sysadmin to YOURLAPTOP\you...
+[4/4] Restarting SQL Server in normal mode...
+
+<span class="cm">and then, in green:</span>
+SUCCESS! YOURLAPTOP\you now has full permissions on SQL Server.
+Press Enter to close</div>
+  <p class="sub" style="margin-top:2vh">Out of the box, SQL Server doesn't trust your Windows account.
+  The script restarts it in a special mode where it does, introduces you as an administrator,
+  and restarts it normally — a one-time handshake, about 30 seconds, only on <strong>your</strong> laptop.
+  <em>Checkpoint: green SUCCESS. Press Enter, 👍 reaction. Red text instead? Screenshot it into the chat
+  and stay on the call — Carl or Jakwoun pulls you into a breakout while the room moves on.</em></p>
+</section>
+
+<!-- 5e · PLAY STEP 5 · DOWNLOAD -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 5 of 7 — back to the repo</div>
+  <h2>Download the database file</h2>
+  <div class="code"><span class="cm">In the repo's file list, YOU CLICK:</span>
+GeekWeekData.sql
+
+<span class="cm">then, top-right of the file view, the download icon:</span>
+Download raw file
+
+<span class="cm">THE SCREEN SAYS: GeekWeekData.sql lands in your Downloads folder (~2.5 MB).</span></div>
+  <p class="sub" style="margin-top:2vh">That one file is an entire company in a box — every table,
+  every row, waiting to be unpacked. README Step 2, exactly as written.
+  <em>Checkpoint: file in Downloads. 👍 reaction.</em></p>
+</section>
+
+<!-- 5f · PLAY STEP 6 · EXECUTE -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 6 of 7 — unpack the company</div>
+  <h2>Execute it in SSMS</h2>
+  <div class="code"><span class="cm">1 · Open SQL Server Management Studio.</span>
+<span class="cm">2 · Connect → Server name:</span>
+.\SQLEXPRESS
+<span class="cm">    Authentication: Windows Authentication → Connect.</span>
+<span class="cm">3 · File → Open → the GeekWeekData.sql you just downloaded.</span>
+<span class="cm">4 · Press F5 (Execute). It chews for a minute — that's normal.</span>
+
+<span class="cm">THE SCREEN SAYS:</span>
+Commands completed successfully.</div>
+  <p class="sub" style="margin-top:2vh">No permission errors — because of the handshake in step 4.
+  <strong style="color:var(--paper)">"Database already exists"?</strong> You already loaded it —
+  that's a green light wearing red. <em>Checkpoint: completed successfully. 👍 reaction.</em></p>
+</section>
+
+<!-- 5g · PLAY STEP 7 · THE PROOF -->
+<section class="slide ink">
+  <div class="eyebrow">Setup play · step 7 of 7 — make it prove it</div>
+  <h2>The proof</h2>
+  <div class="code"><span class="cm">In SSMS: New Query. YOU TYPE, then press F5:</span>
+USE Northwind;
+SELECT COUNT(*) FROM Orders;
+
+<span class="cm">THE SCREEN SAYS:</span>
+830</div>
+  <p class="sub" style="margin-top:2vh">The same 830 from two slides ago — your laptop just proved
+  the whole play worked, end to end. <em>Checkpoint: type your number in the chat — we want
+  a wall of 830s.</em> Setup is done <strong style="color:var(--paper)">forever</strong> —
+  from here on, it's just questions and answers.</p>
+</section>
+
+<!-- 6 · WHAT IS A RELATIONAL DATABASE -->
+<section class="slide paper">
+  <div class="eyebrow">10:10 · The map</div>
+  <h2>A well-organized<br>spreadsheet system</h2>
+  <dl class="defs">
+    <div class="def"><dt>Table</dt><dd>One sheet: all the customers. All the orders.</dd></div>
+    <div class="def"><dt>Row</dt><dd>One record: a single customer.</dd></div>
+    <div class="def"><dt>Column</dt><dd>One attribute: their city. Their phone.</dd></div>
+    <div class="def"><dt>Primary key</dt><dd>The ID that makes a row unique. Nobody else gets it.</dd></div>
+    <div class="def"><dt>Foreign key</dt><dd>A column that points at another table's primary key. That pointer <em>is</em> the relationship.</dd></div>
+    <div class="def"><dt>The big idea</dt><dd>Keep each fact <strong>once</strong>, and point. The customer's name lives in one place — 31 orders just point at it.</dd></div>
+  </dl>
+</section>
+
+<!-- 7 · THE MAP -->
+<section class="slide ink">
+  <div class="eyebrow">How Northwind connects</div>
+  <h2>The map</h2>
+  <div class="code">Orders.CustomerID         ──────► Customers.CustomerID    <span class="cm">← who placed it</span>
+[Order Details].OrderID   ──────► Orders.OrderID          <span class="cm">← what's in the box</span>
+[Order Details].ProductID ──────► Products.ProductID      <span class="cm">← what it cost</span>
+Products.CategoryID       ──────► Categories.CategoryID   <span class="cm">← what kind of thing</span>
+Products.SupplierID       ──────► Suppliers.SupplierID    <span class="cm">← who ships it to us</span></div>
+  <p class="sub" style="margin-top:2.5vh">Read it out loud with me: one customer, many orders. One order,
+  many line items. You don't memorize this — you learn to <strong style="color:var(--paper)">walk the arrows</strong>.
+  Where would you look to find what a customer bought?</p>
+</section>
+
+<!-- 8 · THE METHOD -->
+<section class="slide paper">
+  <div class="eyebrow">How this morning works</div>
+  <h2>I do → We do → You do</h2>
+  <dl class="defs">
+    <div class="def"><dt>I do</dt><dd>I query Northwind while you watch. No typing, no pressure — just see the whole thing happen once.</dd></div>
+    <div class="def"><dt>We do</dt><dd>Everyone builds the same query together, one line at a time, with a checkpoint after each. Nobody moves ahead; nobody gets left.</dd></div>
+    <div class="def"><dt>You do</dt><dd>You and a partner take real questions and turn them into queries — with the whole morning's examples still on screen to steal from.</dd></div>
+  </dl>
+  <p class="sub" style="margin-top:3vh">Being confused at step one is normal. That's why there are three passes.</p>
+</section>
+
+<!-- 9 · SIX WORDS -->
+<section class="slide redbg">
+  <div class="eyebrow">The whole language, almost</div>
+  <h2>Six words do<br>most of the work</h2>
+  <dl class="defs">
+    <div class="def"><dt>SELECT · FROM · WHERE</dt><dd>Pick the columns. Name the table. Filter the rows. This answers simple questions.</dd></div>
+    <div class="def"><dt>JOIN · GROUP BY · ORDER BY</dt><dd>Connect the tables. Summarize the piles. Sort the answer. This answers interesting ones.</dd></div>
+  </dl>
+  <p class="sub" style="margin-top:3vh">Watch for all six in the next ten minutes.</p>
+</section>
+
+<!-- 10a · I DO STEP 1 -->
+<section class="slide ink">
+  <div class="eyebrow">I do · step 1 of 4 — my screen share, just watch. You type at 11:00</div>
+  <h2>I open the door</h2>
+  <div class="code"><span class="cm">I open SSMS → Connect → Server name: .\SQLEXPRESS → Windows Authentication.</span>
+<span class="cm">Then: New Query. I TYPE:</span>
+USE Northwind;
+
+<span class="cm">I press F5 (Execute). THE SCREEN SAYS:</span>
+Commands completed successfully.</div>
+  <p class="sub" style="margin-top:2vh"><strong style="color:var(--paper)">While it runs, I say:</strong>
+  "That line points my query window at the right database — like walking into the right
+  building before you start knocking on doors. From here on, every question I ask, Northwind answers."</p>
+</section>
+
+<!-- 10b · I DO STEP 2 -->
+<section class="slide ink">
+  <div class="eyebrow">I do · step 2 of 4 — select, from, where</div>
+  <h2>I ask a simple question</h2>
+  <div class="code"><span class="cm">"Which customers are in Germany?" I TYPE:</span>
+SELECT CompanyName, City
+FROM Customers
+WHERE Country = 'Germany';
+
+<span class="cm">THE SCREEN SAYS (bottom of the grid):</span>
+11 rows</div>
+  <p class="sub" style="margin-top:2vh"><strong style="color:var(--paper)">I say, reading each line:</strong>
+  "Give me the company and the city… from the customers table… but only the German ones.
+  Three lines, plain English with the vowels removed. 91 customers became 11 answers."</p>
+</section>
+
+<!-- 10c · I DO STEP 3 -->
+<section class="slide ink">
+  <div class="eyebrow">I do · step 3 of 4 — order by, and one honest mistake</div>
+  <h2>I sort the answer</h2>
+  <div class="code"><span class="cm">"What are our most expensive products?" I TYPE (and I forget the DESC on purpose):</span>
+SELECT TOP 10 ProductName, UnitPrice
+FROM Products
+ORDER BY UnitPrice DESC;
+
+<span class="cm">THE SCREEN SAYS (top row):</span>
+Côte de Blaye    263.50</div>
+  <p class="sub" style="margin-top:2vh"><strong style="color:var(--paper)">I say:</strong> "First time I run it
+  without DESC, I get the ten <em>cheapest</em> — the data did exactly what I said, not what I meant.
+  That's every bug you'll ever meet. I read my query again, add DESC, rerun. No panic, just reread."</p>
+</section>
+
+<!-- 10d · I DO STEP 4 -->
+<section class="slide ink">
+  <div class="eyebrow">I do · step 4 of 4 — join, group by</div>
+  <h2>I ask a real question</h2>
+  <div class="code"><span class="cm">"Which customers order the most?" — that needs TWO tables. I TYPE:</span>
+SELECT c.CompanyName, COUNT(*) AS OrderCount
+FROM Orders o
+JOIN Customers c ON c.CustomerID = o.CustomerID
+GROUP BY c.CompanyName
+ORDER BY OrderCount DESC;
+
+<span class="cm">THE SCREEN SAYS (top of the list):</span>
+Save-a-Lot Markets    31</div>
+  <p class="sub" style="margin-top:2vh"><strong style="color:var(--paper)">I say, walking the arrows:</strong>
+  "Orders only knows the customer's ID — the JOIN walks the arrow to Customers to pick up the name.
+  Then GROUP BY makes 830 orders into 89 piles, and ORDER BY puts the biggest pile on top.
+  One plain-English question, one answer. That is the whole job."</p>
+</section>
+
+<!-- 11 · I DO RECAP -->
+<section class="slide paper">
+  <div class="eyebrow">I do · what you just watched</div>
+  <h2>Two moves. That's the language.</h2>
+  <p class="sub"><strong>Move 1: filter</strong> — SELECT, FROM, WHERE cut a big table down to the rows you care about.
+  <strong>Move 2: summarize</strong> — JOIN, GROUP BY, ORDER BY connect tables and turn thousands of rows into one answer.
+  <strong style="color:var(--ink)">At 11:00 you build a query yourself, with me, one line at a time.</strong></p>
+  <table style="margin-top:3vh">
+    <tr><th>Word</th><th>Plain English</th><th>Word</th><th>Plain English</th></tr>
+    <tr><td><span class="file">SELECT</span></td><td>show me these columns</td><td><span class="file">JOIN</span></td><td>walk the arrow to another table</td></tr>
+    <tr><td><span class="file">FROM</span></td><td>out of this table</td><td><span class="file">GROUP BY</span></td><td>make piles and count them</td></tr>
+    <tr><td><span class="file">WHERE</span></td><td>only rows that match</td><td><span class="file">ORDER BY</span></td><td>biggest (or smallest) first</td></tr>
+  </table>
+</section>
+
+<!-- 12 · WE DO MARKER -->
+<section class="slide redbg">
+  <div class="eyebrow">11:00 · together</div>
+  <h2>We do — one query,<br>all of us</h2>
+  <ul class="big">
+    <li><span class="b">1</span><span>One step at a time. <strong>Nobody types ahead.</strong></span></li>
+    <li><span class="b">2</span><span>After each step: <strong>👍 reaction</strong> when your screen matches. We wait for every thumb.</span></li>
+    <li><span class="b">3</span><span>Stuck? Type <strong>STUCK</strong> in the chat <strong>immediately</strong> — stuck is a group problem here, never a private one</span></li>
+  </ul>
+  <p class="sub" style="margin-top:3vh">The question: <strong style="color:var(--paper)">"Build the product
+  catalog — every product, the company that supplies it, and the kind of thing it is, sorted by kind."</strong>
+  Three tables, one answer.</p>
+</section>
+
+<!-- 13a · WE DO STEP 1 -->
+<section class="slide ink">
+  <div class="eyebrow">We do · step 1 of 4 — open the door</div>
+  <h2>Connect and aim</h2>
+  <div class="code"><span class="cm">Open SSMS → Connect → Server name: .\SQLEXPRESS → Windows Authentication.</span>
+<span class="cm">Then: New Query. YOU TYPE, then press F5:</span>
+USE Northwind;
+
+<span class="cm">THE SCREEN SAYS:</span>
+Commands completed successfully.</div>
+  <p class="sub" style="margin-top:2vh"><em>Checkpoint: everyone sees "Commands completed successfully."
+  👍 reaction.</em></p>
+</section>
+
+<!-- 13b · WE DO STEP 2 -->
+<section class="slide ink">
+  <div class="eyebrow">We do · step 2 of 4 — start simple</div>
+  <h2>Start with the products</h2>
+  <div class="code"><span class="cm">YOU TYPE, then F5:</span>
+SELECT ProductName
+FROM Products;
+
+<span class="cm">THE SCREEN SAYS (bottom of the grid):</span>
+77 rows</div>
+  <p class="sub" style="margin-top:2vh">Chai, Chang, Aniseed Syrup… every product Northwind sells,
+  names only. The middle of the map — both arrows we need start here.
+  <em>Checkpoint: type your row count in the chat — a wall of 77s.</em></p>
+</section>
+
+<!-- 13c · WE DO STEP 3 -->
+<section class="slide ink">
+  <div class="eyebrow">We do · step 3 of 4 — walk the first arrow</div>
+  <h2>Join in the suppliers</h2>
+  <div class="code"><span class="cm">Who ships each one to us? Add a JOIN — YOU TYPE, then F5:</span>
+SELECT s.CompanyName, p.ProductName
+FROM Products p
+JOIN Suppliers s ON s.SupplierID = p.SupplierID;
+
+<span class="cm">THE SCREEN SAYS (top row, and 77 rows at the bottom):</span>
+Exotic Liquids    Chai</div>
+  <p class="sub" style="margin-top:2vh">Products only knows the supplier's ID — the JOIN walks the arrow
+  to Suppliers and picks up the company name. Still 77 rows: same products,
+  <strong style="color:var(--paper)">now wearing their supplier's name</strong>.
+  <em>Checkpoint: Exotic Liquids next to Chai. 👍 reaction.</em></p>
+</section>
+
+<!-- 13d · WE DO STEP 4 -->
+<section class="slide ink">
+  <div class="eyebrow">We do · step 4 of 4 — second arrow, then sort</div>
+  <h2>Join the categories, sort the catalog</h2>
+  <div class="code"><span class="cm">Same move again, plus a sort — YOU TYPE, then F5:</span>
+SELECT s.CompanyName, p.ProductName, c.CategoryName
+FROM Products p
+JOIN Suppliers  s ON s.SupplierID = p.SupplierID
+JOIN Categories c ON c.CategoryID = p.CategoryID
+ORDER BY c.CategoryName;
+
+<span class="cm">THE SCREEN SAYS (top rows, 77 rows at the bottom):</span>
+Exotic Liquids    Chai    Beverages
+Exotic Liquids    Chang   Beverages</div>
+  <p class="sub" style="margin-top:2vh"><em>Checkpoint: type your top product in the chat — a wall of Chai.</em>
+  Three tables, two arrows, one sorted catalog — ORDER BY sorts A→Z unless you say DESC.
+  The second JOIN was the same move as the first: <strong style="color:var(--paper)">you already knew
+  how to do this.</strong></p>
+</section>
+
+<!-- 14 · YOU DO MARKER -->
+<section class="slide redbg">
+  <div class="eyebrow">11:20 · breakout rooms, two per room</div>
+  <h2>You do — meet your partner</h2>
+  <ul class="big">
+    <li><span class="b">1</span><span>The <strong>driver shares their screen and types</strong>; the <strong>navigator</strong> reads the question, watches the query, catches typos</span></li>
+    <li><span class="b">2</span><span><strong>Swap driver halfway</strong> — the new driver shares. Both of you drive today</span></li>
+    <li><span class="b">3</span><span>This deck link is in the chat — <strong>stealing from the morning's examples is the skill</strong>, not cheating</span></li>
+    <li><span class="b">4</span><span>Room stuck? Click <strong>Ask for Help</strong> — Carl or Jakwoun drops in. Stuck stays a group problem, even in a small room</span></li>
+  </ul>
+</section>
+
+<!-- 15 · YOU DO WORK BLOCK -->
+<section class="slide ink">
+  <div class="eyebrow">You do · until 11:40 — each question names its words</div>
+  <h2>The work block</h2>
+  <ul class="big">
+    <li><span class="b">1</span><span>Which customers are in <strong>Germany</strong>? — you watched me do this one <em>(SELECT · WHERE)</em></span></li>
+    <li><span class="b">2</span><span>The <strong>10 most expensive products</strong> — don't forget what I forgot <em>(TOP · ORDER BY)</em></span></li>
+    <li><span class="b">3</span><span>Every order next to the <strong>company that placed it</strong> <em>(JOIN)</em></span></li>
+    <li><span class="b">4</span><span>How many orders shipped to <strong>each country</strong>? <em>(JOIN · GROUP BY)</em></span></li>
+    <li><span class="b">★</span><span>Done early? Invent a question of your own and make Northwind answer it</span></li>
+  </ul>
+  <p class="sub" style="margin-top:2.5vh">At 11:40 the rooms close and we regroup — each pair drops
+  <strong style="color:var(--paper)">their favorite answer in the chat</strong> on the way back.</p>
+</section>
+
+<!-- 16 · WRAP-UP -->
+<section class="slide paper">
+  <div class="eyebrow">11:40 · Wrap-up</div>
+  <h2>You already speak SQL</h2>
+  <ul class="big">
+    <li><span class="b">★</span><span>Data lives in tables. <strong>Keys connect them.</strong> You read the map, then walk the arrows</span></li>
+    <li><span class="b">★</span><span><strong>Six words</strong>: filter with SELECT–FROM–WHERE, summarize with JOIN–GROUP BY–ORDER BY</span></li>
+    <li><span class="b">★</span><span>The data does what you <strong>said</strong>, not what you meant. Errors are information — reread, rerun</span></li>
+  </ul>
+</section>
+
+<!-- 17 · GEEK WEEK PREVIEW -->
+<section class="slide redbg">
+  <div class="eyebrow">Monday morning</div>
+  <h2>Geek Week starts now</h2>
+  <p class="sub" style="font-size:clamp(18px,2.2vw,28px)">Monday hands you real questions and this same database.
+  Some of them will look hard. All of them are the two moves you did today, repeated.
+  <strong style="color:var(--paper)">Lean into the challenge — and into each other.</strong>
+  The intern in the next video square is a teammate, not a competitor.</p>
+</section>
+
+<!-- 18 · RESOURCES -->
+<section class="slide paper">
+  <div class="eyebrow">Keep the reps going</div>
+  <h2>After today</h2>
+  <table>
+    <tr><th>Resource</th><th>Where</th></tr>
+    <tr><td><strong>Beginner course</strong> — the six words, slower</td><td><span class="file">sqlcourse.com/beginner-course</span></td></tr>
+    <tr><td><strong>Advanced course</strong> — when the six feel easy</td><td><span class="file">sqlcourse.com/advanced-course</span></td></tr>
+    <tr><td><strong>W3Schools SQL</strong> — look anything up, try it in the browser</td><td><span class="file">w3schools.com/sql</span></td></tr>
+    <tr><td><strong>SQL Squid Game</strong> — practice that feels like a game</td><td><span class="file">datalemur.com/sql-game</span></td></tr>
+  </table>
+  <p class="sub" style="margin-top:3vh">Twenty minutes tonight is worth two hours Monday.
+  <strong style="color:var(--ink)">See you at Geek Week.</strong><span class="star">*</span></p>
+</section>
+
+</div>
+
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var bar=document.getElementById('bar'),counter=document.getElementById('counter'),
+      hint=document.getElementById('hint'),brand=document.getElementById('brand'),
+      tag=document.querySelector('.tag');
+  var i=0,n=slides.length,moved=false;
+  function paint(){
+    slides.forEach(function(s,k){s.classList.toggle('active',k===i)});
+    bar.style.width=((i+1)/n*100)+'%';
+    counter.textContent=(i+1)+' / '+n;
+    var dark=!slides[i].classList.contains('paper');
+    var fg=dark?'#FAF6F2':'#161217';
+    brand.style.color=fg; tag.style.color=dark?'#9A9095':'#5C5458';
+    counter.style.color=dark?'#9A9095':'#5C5458';
+    if(!moved&&i>0){moved=true;hint.classList.add('gone')}
+  }
+  function go(d){i=Math.min(n-1,Math.max(0,i+d));paint()}
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '||e.key==='PageDown')go(1);
+    if(e.key==='ArrowLeft'||e.key==='PageUp')go(-1);
+    if(e.key==='Home'){i=0;paint()} if(e.key==='End'){i=n-1;paint()}
+  });
+  document.getElementById('zNext').addEventListener('click',function(){go(1)});
+  document.getElementById('zPrev').addEventListener('click',function(){go(-1)});
+  var x0=null;
+  document.addEventListener('touchstart',function(e){x0=e.touches[0].clientX},{passive:true});
+  document.addEventListener('touchend',function(e){
+    if(x0===null)return;
+    var dx=e.changedTouches[0].clientX-x0;
+    if(Math.abs(dx)>60)go(dx<0?1:-1);
+    x0=null;
+  },{passive:true});
+  paint();
+})();
+</script>
