@@ -50,6 +50,12 @@ The answer should be **830**.
 or tap the screen edges to navigate, **Ctrl+P → Save as PDF** exports one
 slide per page.
 
+## Geek Week do's and don'ts
+
+[`REF-geekweek-dos-and-donts.md`](./REF-geekweek-dos-and-donts.md) — how
+testing works during Geek Week and what's expected of you. Read it before
+Monday.
+
 ## Optional challenge
 
 [`DEL-0928-product-catalog.md`](./DEL-0928-product-catalog.md) — after the
