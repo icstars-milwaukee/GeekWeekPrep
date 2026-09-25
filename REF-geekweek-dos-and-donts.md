@@ -20,6 +20,8 @@ up. Read it before Monday. Reread it whenever the week gets loud.
   end of the queue. A fail costs you a spot in line, never respect.
 - **Three fails on one task?** You advance to the next task. Anything
   unfinished comes back around after Task 15.
+- **Testing is keyboard only.** No mouse — everything happens on the
+  keyboard, from opening a query window to running it.
 - **Attendance during testing blocks is mandatory.** Blocks run up to
   90 minutes; the schedule lives on the cycle's Outlook calendar.
 
@@ -28,6 +30,10 @@ up. Read it before Monday. Reread it whenever the week gets loud.
 - **Sign up early and often.** The whiteboard rewards the brave — waiting
   for perfect readiness is how a day disappears.
 - **Type every query by hand.** That's the rule, and it's also the training.
+- **Practice living without the mouse now.** Testing is keyboard only, so
+  make the shortcuts reflexes before Monday: **Ctrl+N** (new query window),
+  **F5** (execute), **Ctrl+O** (open a file), arrow keys to move around.
+  Run every practice query this weekend without touching the mouse.
 - **End every query with a semicolon** and keep your formatting clean —
   one clause per line reads like a pro wrote it.
 - **Explain your logic out loud** — during your attempt and after. Being
