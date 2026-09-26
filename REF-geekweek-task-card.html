@@ -1,0 +1,198 @@
+<title>Geek Week Task Card · i.c.stars Milwaukee</title>
+<style>
+  :root{
+    --ink:#161217; --paper:#FAF6F2; --red:#D6003C; --grey:#9A9095; --grey-dark:#5C5458;
+    --line:#D8CFC6; --green:#2E7D4F;
+    --disp:"Segoe UI","Helvetica Neue",Arial,sans-serif;
+    --mono:Consolas,"Courier New",monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--ink);color:var(--paper);font-family:var(--disp);padding:4vh 4vw}
+
+  .intro{max-width:70ch;margin:0 auto 3vh}
+  .intro .brand{font-weight:900;font-size:18px}
+  .intro .brand .pipe{font-weight:400;opacity:.55;margin:0 .12em}
+  .intro .brand .star{color:var(--red)}
+  .intro .brand .mke{font-weight:400;letter-spacing:.22em;text-transform:uppercase;font-size:.6em;vertical-align:.12em;margin-left:.9em;opacity:.75}
+  .intro h1{font-weight:900;text-transform:uppercase;letter-spacing:-.01em;font-size:clamp(22px,3.4vw,38px);margin:1.5vh 0 .5vh;color:var(--paper)}
+  .intro p{color:var(--grey);font-size:14px;line-height:1.55}
+  .intro b{color:var(--paper)}
+
+  .sheet{display:flex;gap:0;justify-content:center;flex-wrap:wrap;background:transparent}
+  .card{
+    width:4.85in;background:var(--paper);color:var(--ink);
+    padding:.32in .3in .26in;position:relative;
+  }
+  .card + .card{border-left:2px dashed var(--grey)}
+  .scissors{position:absolute;left:-11px;top:.18in;font-size:15px;color:var(--grey);transform:rotate(90deg)}
+
+  .c-brand{font-weight:900;font-size:12.5px;color:var(--ink)}
+  .c-brand .pipe{font-weight:400;opacity:.5;margin:0 .1em}
+  .c-brand .star{color:var(--red)}
+  .c-brand .mke{font-weight:400;letter-spacing:.2em;text-transform:uppercase;font-size:.62em;vertical-align:.1em;margin-left:.6em;color:var(--grey-dark)}
+  .c-course{font-size:8.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--grey-dark);margin-top:2px}
+  .c-title{font-weight:900;font-size:21px;text-transform:uppercase;letter-spacing:-.01em;margin:.09in 0 .04in}
+  .c-title .flag{color:var(--red)}
+
+  .c-player{display:flex;gap:.18in;font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey-dark);margin:.06in 0 .1in}
+  .c-player span b{display:inline-block;min-width:1.35in;border-bottom:1px solid var(--ink);height:12px}
+  .c-player span.short b{min-width:.55in}
+
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:10.5px}
+  th{font-family:var(--disp);font-size:7.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red);
+     text-align:center;padding:2px 3px;border-bottom:2px solid var(--ink)}
+  th:first-child{text-align:left}
+  td{border-bottom:1px solid var(--line);padding:2.5px 3px;text-align:center;height:.185in}
+  td.hole{font-weight:700;text-align:left;font-family:var(--disp);font-size:10.5px}
+  td.par{color:var(--grey-dark)}
+  td.circ{font-size:12px;letter-spacing:.25em;color:var(--grey-dark)}
+  td.blank{color:var(--line)}
+  tr.pace td{border-bottom:2px solid var(--ink);padding:1.5px 3px;height:auto;
+    font-family:var(--disp);font-size:7px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);text-align:right}
+  tr.total td{border-bottom:none;border-top:2px solid var(--ink);font-family:var(--disp);font-weight:900;
+    font-size:9.5px;text-transform:uppercase;letter-spacing:.06em;text-align:left;padding-top:4px}
+  tr.total td.num{font-family:var(--mono);text-align:center}
+
+  .legend{display:flex;gap:.1in;margin-top:.09in}
+  .legend > div{flex:1;border-top:3px solid var(--red);padding-top:.04in}
+  .legend h3{font-size:7px;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:2px}
+  .legend p{font-size:8.2px;line-height:1.5;color:var(--ink)}
+  .legend p b{font-weight:700}
+
+  .nineteenth{margin-top:.09in;background:var(--ink);color:var(--paper);padding:.07in .1in;
+    font-size:8.6px;line-height:1.45}
+  .nineteenth b{color:var(--paper)}
+  .nineteenth .star{color:var(--red)}
+
+  @page{size:letter landscape;margin:.45in}
+  @media print{
+    body{background:#FFFFFF;padding:0}
+    .intro{display:none}
+    .sheet{gap:0}
+    .card{outline:1px dashed var(--grey)}
+  }
+</style>
+
+<div class="intro">
+  <div class="brand">i.c.stars<span class="pipe">|</span><span class="star">*</span><span class="mke">Milwaukee</span></div>
+  <h1>Geek Week Task Card</h1>
+  <p>A pocket card for the 15 tasks — fill a circle per attempt, date every pass, and a
+  facilitator initials it. Print this page (<b>Ctrl+P</b>, landscape letter — two cards per
+  sheet), cut along the dashed line, and hand one to every intern Monday morning. The pace
+  lines mark the <b>three-tasks-a-day</b> rhythm that lands all 15 by Friday.</p>
+</div>
+
+<div class="sheet">
+  <div class="card">
+    <div class="c-brand">i.c.stars<span class="pipe">|</span><span class="star">*</span><span class="mke">Milwaukee</span></div>
+    <div class="c-course">Cycle 21 · 15 Tasks · In Order · Three a Day Holds the Pace</div>
+    <div class="c-title">Geek Week Task Card <span class="flag">★</span></div>
+    <div class="c-player">
+      <span>Name <b></b></span>
+      <span class="short">Cycle <b>&nbsp;21</b></span>
+      <span class="short">Week of <b></b></span>
+    </div>
+    <table>
+      <tr><th>Task</th><th>Attempts</th><th>Passed ✓</th><th>Staff</th></tr>
+      <tr><td class="hole">Task 1</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 2</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 3</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Monday on pace · 3 passed</td></tr>
+      <tr><td class="hole">Task 4</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 5</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 6</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Tuesday on pace · 6 passed</td></tr>
+      <tr><td class="hole">Task 7</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 8</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 9</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Wednesday on pace · 9 passed</td></tr>
+      <tr><td class="hole">Task 10</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 11</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 12</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Thursday on pace · 12 passed</td></tr>
+      <tr><td class="hole">Task 13</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 14</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 15</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Friday · the finish line · 15 passed</td></tr>
+      <tr class="total"><td>Week total</td><td class="num"></td><td class="num">/15</td><td></td></tr>
+    </table>
+    <div class="legend">
+      <div>
+        <h3>How it works</h3>
+        <p>Fill one <b>○</b> per attempt<br>
+           Pass — date it, staff initials it<br>
+           Miss — buffer, sign up again<br>
+           <b>3 misses</b> — next task; revisit after 15</p>
+      </div>
+      <div>
+        <h3>The rules</h3>
+        <p>Tasks go <b>in order</b>, 1 to 15<br>
+           On the clock: <b>keyboard only</b><br>
+           <b>Silence</b> while someone tests<br>
+           <b>No task-talk, ever</b> — concepts yes, Tasks 1–15 no<br>
+           <b>Cheer every pass</b> — loudly<br>
+           <b>Staff initials</b> every pass</p>
+      </div>
+    </div>
+    <div class="nineteenth"><b>The finish line:</b> all 15 by Friday is the challenge — and it starts
+    with your name on the whiteboard. Sign up early and often. Real geeks debug, learn, and lead.
+    <span class="star">★</span></div>
+  </div>
+
+  <div class="card">
+    <span class="scissors">✂</span>
+    <div class="c-brand">i.c.stars<span class="pipe">|</span><span class="star">*</span><span class="mke">Milwaukee</span></div>
+    <div class="c-course">Cycle 21 · 15 Tasks · In Order · Three a Day Holds the Pace</div>
+    <div class="c-title">Geek Week Task Card <span class="flag">★</span></div>
+    <div class="c-player">
+      <span>Name <b></b></span>
+      <span class="short">Cycle <b>&nbsp;21</b></span>
+      <span class="short">Week of <b></b></span>
+    </div>
+    <table>
+      <tr><th>Task</th><th>Attempts</th><th>Passed ✓</th><th>Staff</th></tr>
+      <tr><td class="hole">Task 1</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 2</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 3</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Monday on pace · 3 passed</td></tr>
+      <tr><td class="hole">Task 4</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 5</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 6</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Tuesday on pace · 6 passed</td></tr>
+      <tr><td class="hole">Task 7</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 8</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 9</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Wednesday on pace · 9 passed</td></tr>
+      <tr><td class="hole">Task 10</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 11</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 12</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Thursday on pace · 12 passed</td></tr>
+      <tr><td class="hole">Task 13</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 14</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr><td class="hole">Task 15</td><td class="circ">○ ○ ○</td><td class="blank">·</td><td class="blank">·</td></tr>
+      <tr class="pace"><td colspan="4">Friday · the finish line · 15 passed</td></tr>
+      <tr class="total"><td>Week total</td><td class="num"></td><td class="num">/15</td><td></td></tr>
+    </table>
+    <div class="legend">
+      <div>
+        <h3>How it works</h3>
+        <p>Fill one <b>○</b> per attempt<br>
+           Pass — date it, staff initials it<br>
+           Miss — buffer, sign up again<br>
+           <b>3 misses</b> — next task; revisit after 15</p>
+      </div>
+      <div>
+        <h3>The rules</h3>
+        <p>Tasks go <b>in order</b>, 1 to 15<br>
+           On the clock: <b>keyboard only</b><br>
+           <b>Silence</b> while someone tests<br>
+           <b>No task-talk, ever</b> — concepts yes, Tasks 1–15 no<br>
+           <b>Cheer every pass</b> — loudly<br>
+           <b>Staff initials</b> every pass</p>
+      </div>
+    </div>
+    <div class="nineteenth"><b>The finish line:</b> all 15 by Friday is the challenge — and it starts
+    with your name on the whiteboard. Sign up early and often. Real geeks debug, learn, and lead.
+    <span class="star">★</span></div>
+  </div>
+</div>
