@@ -72,6 +72,13 @@ The answer should be **830**.
 or tap the screen edges to navigate, **Ctrl+P → Save as PDF** exports one
 slide per page.
 
+## Task card (print & cut)
+
+[`REF-geekweek-task-card.html`](./REF-geekweek-task-card.html) — pocket
+card for the 15 tasks: attempt circles, pass dates, staff initials, and
+the daily pace lines. Open in a browser, **Ctrl+P** (landscape letter),
+two cards per sheet, cut on the dashed line.
+
 ## Geek Week do's and don'ts
 
 [`REF-geekweek-dos-and-donts.md`](./REF-geekweek-dos-and-donts.md) — how
